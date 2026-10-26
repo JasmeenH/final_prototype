@@ -1,0 +1,77 @@
+<%- include("partials/head", {title: "Staff Dashboard" }) %>
+
+    <body>
+        <%- include("partials/staff_navbar") %>
+            <main class="container-fluid py-4 fellow-page-content">
+                <div class="page-card bg-white rounded shadow-sm p-4">
+
+                    <div class="mb-4">
+                        <h3 class="mb-1">Staff Dashboard</h3>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-12 col-md-4">
+                            <div class="card border-0 shadow-sm">
+                                <div class="card-body">
+                                    <p class="text-muted mb-1">Total Hours</p>
+
+                                    <h4 class="mb-0">
+                                        <%= stats.totalHours %>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-4">
+                            <div class="card border-0 shadow-sm">
+                                <div class="card-body">
+                                    <p class="text-muted mb-1">People Helped</p>
+
+                                    <h4 class="mb-0">
+                                        <%= stats.totalPeopleHelped %>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-4">
+                            <div class="card border-0 shadow-sm">
+                                <div class="card-body">
+                                    <p class="text-muted mb-1">Entries Submitted</p>
+
+                                    <h4 class="mb-0">
+                                        <%= stats.entriesCount %>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <section class="mb-4">
+                        <% if (weeklyAlerts.length> 0) { %>
+
+                            <div class="alert alert-warning border-warning">
+                                <h5 class="alert-heading">Weekly submission alerts </h5>
+
+                                <p class="mb-2">These fellows have not submitted a service entry this week:</p>
+
+                                <ul class="mb-0">
+                                    <% weeklyAlerts.forEach(function (alert) { %>
+                                        <li>
+                                            <%= alert.fellowName %>
+                                        </li>
+                                        <% }); %>
+                                </ul>
+                            </div>
+
+                            <% } else { %>
+                                <div class="alert alert-success">All active fellows have submitted an entry this week.
+                                </div>
+                                <% } %>
+                    </section>
+
+                </div>
+            </main>
+    </body>
+
+    </html>

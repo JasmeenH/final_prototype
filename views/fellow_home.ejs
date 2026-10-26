@@ -1,0 +1,104 @@
+<%- include("partials/head", { title: "Fellow Dashboard" }) %>
+
+    <body>
+        <%- include("partials/navbar") %>
+            <main class="container py-4 fellow-page-content">
+                <div class="page-card bg-white rounded shadow-sm p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h3 class="mb-1">Fellow Dashboard</h3>
+                        </div>
+
+                    </div>
+
+                    <a href="/service-entry" class="btn btn-primary mb-4">Add service entry</a>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-12 col-md-4">
+                            <div class="card border-0 shadow-sm">
+                                <div class="card-body">
+                                    <p class="text-muted mb-1">Total hours</p>
+                                    <h4 class="mb-0">
+                                        <%= stats.totalHours %>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-4">
+                            <div class="card border-0 shadow-sm">
+                                <div class="card-body">
+                                    <p class="text-muted mb-1">People helped</p>
+                                    <h4 class="mb-0">
+                                        <%= stats.totalPeopleHelped %>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-4">
+                            <div class="card border-0 shadow-sm">
+                                <div class="card-body">
+                                    <p class="text-muted mb-1">Entries submitted</p>
+                                    <h4 class="mb-0">
+                                        <%= stats.entriesCount %>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5 class="mb-3">My service entries</h5>
+
+                    <% if (entries.length===0) { %>
+                        <div class="alert alert-info">You have not submitted any service entries yet.</div>
+                        <% } else { %>
+                            <div class="table-responsive">
+                                <table class="table table-bordered bg-white">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Site</th>
+                                            <th>Hours</th>
+                                            <th>People helped</th>
+                                            <th>Activity</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <% entries.forEach(function (entry) { %>
+                                            <tr>
+                                                <td>
+                                                    <%= entry.service_date %>
+                                                </td>
+
+                                                <td>
+                                                    <% if (entry.sites) { %>
+                                                        <%= entry.sites.name %>
+                                                            <% } else if (entry.one_time_sites) { %>
+                                                                <%= entry.one_time_sites.name %>
+                                                                    <% } else { %>
+                                                                        Not listed
+                                                                        <% } %>
+                                                </td>
+
+                                                <td>
+                                                    <%= entry.hours %>
+                                                </td>
+                                                <td>
+                                                    <%= entry.people_helped %>
+                                                </td>
+                                                <td>
+                                                    <%= entry.service_description %>
+                                                </td>
+                                            </tr>
+                                            <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <% } %>
+                </div>
+            </main>
+    </body>
+
+    </html>

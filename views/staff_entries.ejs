@@ -1,0 +1,120 @@
+<%- include("partials/head", {title: "Service Entries" }) %>
+
+    <body>
+        <%- include("partials/staff_navbar") %>
+
+            <main class="container-fluid py-4 fellow-page-content">
+                <div class="page-card bg-white rounded shadow-sm p-4">
+
+                    <h3 class="mb-2">Service Entries</h3>
+
+                    <p class="text-muted mb-4">View and filter submitted service entries.</p>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-12 col-md-3">
+                            <label for="entryFellowFilter" class="form-label">Fellow</label>
+
+                            <input type="text" id="entryFellowFilter" class="form-control" list="entryFellowNames"
+                                placeholder="Type a name">
+                            <datalist id="entryFellowNames">
+                                <% serviceEntries.forEach(function (entry) { %>
+                                    <option value="<%= entry.fellowName %>"></option>
+                                    <% }); %>
+                            </datalist>
+                        </div>
+
+                        <div class="col-12 col-md-3">
+                            <label for="entrySiteFilter" class="form-label">Site</label>
+
+                            <input type="text" id="entrySiteFilter" class="form-control" list="entrySiteNames"
+                                placeholder="Type a site">
+
+                            <datalist id="entrySiteNames">
+                                <% serviceEntries.forEach(function (entry) { %>
+                                    <option value="<%= entry.siteName %>"></option>
+                                    <% }); %>
+                            </datalist>
+                        </div>
+
+                        <div class="col-12 col-md-3">
+                            <label for="entryAreaFilter" class="form-label">Area</label>
+
+                            <input type="text" id="entryAreaFilter" class="form-control" list="entryAreaNames"
+                                placeholder="Type an area">
+
+                            <datalist id="entryAreaNames">
+                                <% serviceEntries.forEach(function (entry) { %>
+                                    <option value="<%= entry.areaName %>"></option>
+                                    <% }); %>
+                            </datalist>
+                        </div>
+
+                        <div class="col-12 col-md-3">
+                            <label for="entryTypeFilter" class="form-label">Service type</label>
+
+                            <select id="entryTypeFilter" class="form-select">
+                                <option value="">All</option>
+                                <option value="regular">Primary</option>
+                                <option value="one_time">One-time</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Fellow</th>
+                                    <th>Site</th>
+                                    <th>Service Type</th>
+                                    <th>Area</th>
+                                    <th>Date</th>
+                                    <th>Hours</th>
+                                    <th>People Helped</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <% serviceEntries.forEach(function (entry) { %>
+                                    <tr class="service-entry-row" data-fellow="<%= entry.fellowName.toLowerCase() %>"
+                                        data-site="<%= entry.siteName.toLowerCase() %>"
+                                        data-area="<%= entry.areaName.toLowerCase() %>"
+                                        data-type="<%= entry.service_type %>">
+                                        <td>
+                                            <%= entry.fellowName %>
+                                        </td>
+                                        <td>
+                                            <%= entry.siteName %>
+                                        </td>
+                                        <td>
+                                            <% if (entry.service_type==="one_time" ) { %>
+                                                <span class="badge text-bg-secondary">One-time</span>
+                                                <% } else { %>
+                                                    <span class="badge text-bg-primary">Primary</span>
+                                                    <% } %>
+                                        </td>
+
+                                        <td>
+                                            <%= entry.areaName %>
+                                        </td>
+                                        <td>
+                                            <%= entry.service_date %>
+                                        </td>
+                                        <td>
+                                            <%= entry.hours %>
+                                        </td>
+                                        <td>
+                                            <%= entry.people_helped %>
+                                        </td>
+                                    </tr>
+                                    <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </main>
+            <script src="/js/staff_entries.js"></script>
+    </body>
+
+    </html>

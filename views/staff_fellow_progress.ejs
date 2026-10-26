@@ -1,0 +1,117 @@
+<%- include("partials/head", {title: "Fellow Progress" }) %>
+
+    <body>
+        <%- include("partials/staff_navbar") %>
+
+            <main class="container-fluid py-4 fellow-page-content">
+                <div class="page-card bg-white rounded shadow-sm p-4">
+                    <h3 class="mb-2">Fellow Progress</h3>
+                    <p class="text-muted mb-4">View fellow hours and completion status.</p>
+                    <div class="row g-3 mb-4">
+                        <div class="col-12 col-md-4">
+                            <label for="fellowNameFilter" class="form-label">Fellow name</label>
+                            <input type="text" id="fellowNameFilter" class="form-control" list="fellowNames"
+                                placeholder="Fellow name .....">
+                            <datalist id="fellowNames">
+                                <% fellows.forEach(function (fellow) { %>
+                                    <option value="<%= fellow.name %>"></option>
+                                    <% }); %>
+                            </datalist>
+                        </div>
+
+                        <div class="col-12 col-md-4">
+                            <label for="siteFilter" class="form-label"> Primary site</label>
+                            <input type="text" id="siteFilter" class="form-control" list="siteNames"
+                                placeholder="Site name .....">
+
+                            <datalist id="siteNames">
+                                <% fellows.forEach(function (fellow) { %>
+                                    <option value="<%= fellow.primarySite %>"></option>
+                                    <% }); %>
+                            </datalist>
+                        </div>
+
+                        <div class="col-12 col-md-4">
+                            <label for="statusFilter" class="form-label">Hour status</label>
+                            <select id="statusFilter" class="form-select">
+                                <option value="">All statuses</option>
+                                <option value="Complete">Complete</option>
+                                <option value="In progress">In progress</option>
+                                <option value="Not started">Not started</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <% if (fellows.length===0) { %>
+
+                        <div class="alert alert-info">No active fellows were found.</div>
+
+                        <% } else { %>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th>Fellow</th>
+                                            <th>Primary Site</th>
+                                            <th>Hours</th>
+                                            <th>Last Entry</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <% fellows.forEach(function (fellow) { %>
+                                            <tr class="fellow-progress-row"
+                                                data-fellow="<%= fellow.name.toLowerCase() %>"
+                                                data-site="<%= fellow.primarySite.toLowerCase() %>"
+                                                data-status="<%= fellow.status %>">
+                                                <td>
+                                                    <%= fellow.name %>
+                                                </td>
+                                                <td>
+                                                    <%= fellow.primarySite %>
+                                                </td>
+                                                <td>
+                                                    <%= fellow.totalHours.toFixed(1) %>
+                                                        /
+                                                        <%= fellow.requiredHours %>
+                                                </td>
+
+                                                <td>
+                                                    <% if (fellow.lastEntry) { %>
+                                                        <%= fellow.lastEntry %>
+                                                            <% } else { %>
+                                                                No entry
+                                                                <% } %>
+                                                </td>
+
+                                                <td>
+                                                    <% if (fellow.status==="Complete" ) { %>
+
+                                                        <span class="badge text-bg-success">Complete</span>
+
+                                                        <% } else if ( fellow.status==="In progress" ) { %>
+
+                                                            <span class="badge text-bg-primary">In progress</span>
+
+                                                            <% } else { %>
+
+                                                                <span class="badge text-bg-warning">Not started</span>
+
+                                                                <% } %>
+                                                </td>
+                                            </tr>
+                                            <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <% } %>
+
+                </div>
+            </main>
+            <script src="/js/staff_fellow_progress.js"></script>
+    </body>
+
+    </html>

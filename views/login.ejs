@@ -1,0 +1,41 @@
+<%- include("partials/head", { title: "Login" }) %>
+
+    <body>
+        <main class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body p-4">
+                            <h3 class="text-center mb-4">
+                                College Corps Tracker
+                            </h3>
+
+                            <% if (error) { %>
+                                <div class="alert alert-danger">
+                                    <%= error %>
+                                </div>
+                                <% } %>
+
+                                    <form method="POST" action="/login">
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input id="email" name="email" type="email" class="form-control"
+                                                autocomplete="email" required>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label for="password" class="form-label">Password</label>
+                                            <input id="password" name="password" type="password" class="form-control"
+                                                autocomplete="current-password" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary w-100">Log in</button>
+                                    </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </body>
+
+    </html>

@@ -1,0 +1,112 @@
+<%- include("partials/head", { title: "Service Entry" }) %>
+
+    <body>
+        <%- include("partials/navbar") %>
+            <main class="container py-4 fellow-page-content">
+                <div class="page-card bg-white rounded shadow-sm p-4">
+                    <h1 class="h3 mb-4">
+                        Add Service Entry
+                    </h1>
+
+                    <form method="POST" action="/service-entry">
+
+                        <div class="mb-3">
+                            <label for="service_type" class="form-label">Service type</label>
+
+                            <select id="service_type" name="service_type" class="form-select" required>
+                                <option value=""> Choose a service type</option>
+                                <option value="regular">Primary site</option>
+                                <option value="one_time">One-time opportunity</option>
+                            </select>
+                        </div>
+
+                        <!-- Primary site section -->
+                        <div id="primary_site_section">
+                            <div class="mb-3">
+                                <label class="form-label">Your primary site</label>
+
+                                <div class="alert alert-info">
+                                    <% if (primarySiteName) { %>
+                                        <%= primarySiteName %>
+                                            <% } else { %>
+                                                No primary site has been assigned.
+                                                <% } %>
+                                </div>
+
+                                <input type="hidden" id="site_id" name="site_id" value="<%= primarySiteId || '' %>">
+                            </div>
+                        </div>
+
+                        <!-- One-time section -->
+                        <div id="one_time_section" class="d-none">
+                            <div class="mb-3">
+                                <label for="one_time_site_choice" class="form-label">One-time opportunity site</label>
+                                <select id="one_time_site_choice" name="one_time_site_choice" class="form-select">
+                                    <option value="">Choose a site</option>
+
+                                    <optgroup label="Official sites">
+                                        <% sites.forEach(function (site) { %>
+                                            <option value="official_<%= site.id %>">
+                                                <%= site.name %>
+                                            </option>
+                                            <% }); %>
+                                    </optgroup>
+
+                                    <optgroup label="Existing one-time sites">
+                                        <% oneTimeSites.forEach(function (site) { %>
+                                            <option value="temporary_<%= site.id %>">
+                                                <%= site.name %>
+                                            </option>
+                                            <% }); %>
+                                    </optgroup>
+
+                                    <option value="new">Add a new site</option>
+                                </select>
+                            </div>
+
+                            <div id="new_site_section" class="mb-3 d-none">
+                                <label for="new_one_time_site_name" class="form-label">New site name</label>
+                                <input id="new_one_time_site_name" name="new_one_time_site_name" type="text"
+                                    class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="service_date" class="form-label">Service date</label>
+                            <input id="service_date" name="service_date" type="date" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="hours" class="form-label">Hours</label>
+                            <input id="hours" name="hours" type="number" min="0" step="0.25" class="form-control"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="service_description" class="form-label">Service description</label>
+                            <textarea id="service_description" name="service_description" class="form-control" rows="3"
+                                required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="people_helped" class="form-label">Number of people helped</label>
+                            <input id="people_helped" name="people_helped" type="number" min="0" value="0"
+                                class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="concerns" class="form-label">Concerns</label>
+                            <textarea id="concerns" name="concerns" class="form-control" rows="3"></textarea>
+                        </div>
+                        <div id="questions_section" class="mt-4 d-none">
+                            <h5>Additional Questions</h5>
+                            <div id="questions_container"></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </main>
+            <script src="/js/service_entry.js"></script>
+    </body>
+
+    </html>

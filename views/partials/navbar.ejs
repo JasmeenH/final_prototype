@@ -1,0 +1,18 @@
+<aside class="fellow-sidebar bg-primary text-white p-3">
+    <h4 class="mb-4"> College Corps</h4>
+
+    <div class="mb-4">
+        <div>
+           Welcome, <%= user.fullName %>
+        </div>
+    </div>
+
+    <nav>
+        <a class="d-block text-white text-decoration-none mb-3" href="/fellow">Dashboard</a>
+        <a class="d-block text-white text-decoration-none mb-3" href="/service-entry">Add Service Entry</a>
+    </nav>
+
+    <form method="POST" action="/logout" class="mt-4">
+        <button type="submit" class="btn btn-outline-light w-100">Log out</button>
+    </form>
+</aside>
